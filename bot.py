@@ -31,15 +31,17 @@ class Leader:
                 m['y'] = np.array(m['y'])
                 m['health'] = np.array(m['health'])
                 m['attack'] = np.array(m['attack'])
-                dist = np.sqrt((me.x - m['x']) ** 2 + (me.y - m['y']) ** 2)
-                #avdist = np.exp((np.log(dist)).mean())
-                avdist = dist.mean()
-                #mdist = dist.min()
-                #if mdist < 200: avdist = mdist**0.8 * avdist ** 0.2
-                fact = (m['health'] + m['attack']) * np.exp(- (dist / avdist)**0.5)
-                xm = (m['x'] * fact).sum() / fact.sum()
-                ym = (m['y'] * fact).sum() / fact.sum()
-                return Towards(2*me.x - xm, 2*me.y - ym)
+                fx = 0.
+                fy = 0.
+                for i in range(len(m['x'])):
+                    vx = me.x - m['x'][i]
+                    vy = me.y - m['y'][i]
+                    dist = np.sqrt(vx**2 + vy**2)
+                    q = m['health'][i] + m['attack'][i]
+                    fx += q / dist**2 * vx / dist
+                    fy += q / dist**2 * vy / dist
+
+                return Vector(fx,fy)
 
         return self.vector
 

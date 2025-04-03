@@ -45,12 +45,8 @@ class Leader:
                 if ff > 0:
                     fx /= ff
                     fy /= ff
-                if t > 60*3.5:
-                    return Vector(fx-0.5,fy-0.5)
-                else:
-                    return Vector(fx+0.0,fy+0.0)
-
-        return self.vector
+                return Vector(fx,fy)
+        return None
 
 
 class Follower:

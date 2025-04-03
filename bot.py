@@ -68,6 +68,8 @@ class Brain:
         pass
 
     def levelup(self, t: float, info: dict, players: dict) -> Levelup:
+        if np.random.uniform() < 0.5:
+            return Levelup("garron", LevelupOptions.weapon_damage)
         # A very random choice
         for hero in players.keys():
             if players[hero].alive:

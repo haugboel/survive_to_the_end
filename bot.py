@@ -70,10 +70,10 @@ class Brain:
         hcool = 0
         for hero in players.keys():
             #if players[hero].alive and players[hero].speed < lowest_speed:
-            if players[hero].alive and players[hero].cooldown > hcool:
-                hcool = players[hero].cooldown
+            if players[hero].alive and players[hero].weapon.cooldown > hcool:
+                hcool = players[hero].weapon.cooldown
                 chero = hero
-        return Levelup(chero, LevelupOptions.player_cooldown)
+        return Levelup(chero, LevelupOptions.weapon_cooldown)
         #return Levelup(chero, LevelupOptions.player_speed)
         hero = RNG.choice(list(players.keys()))
         what = RNG.choice(list(LevelupOptions))

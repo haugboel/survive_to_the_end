@@ -21,20 +21,22 @@ class Leader:
             if len(monsters) > 0:
                 lavdist = 0.; nm = 0
                 mdist = 6e5
-                m = {'x':[], 'y':[], 'health':[]}
+                m = {'x':[], 'y':[], 'health':[], 'attack':[]}
                 for mm in monsters.values():
                     for x in mm.x: m['x'].append(x)
                     for y in mm.y: m['y'].append(y)
                     for h in mm.healths: m['health'].append(h)
+                    for a in mm.attacks: m['attack'].append(a)
                 m['x'] = np.array(m['x'])
                 m['y'] = np.array(m['y'])
                 m['health'] = np.array(m['health'])
+                m['attack'] = np.array(m['attack'])
                 dist = np.sqrt((me.x - m['x']) ** 2 + (me.y - m['y']) ** 2)
                 #avdist = np.exp((np.log(dist)).mean())
                 avdist = dist.mean()
                 #mdist = dist.min()
                 #if mdist < 200: avdist = mdist**0.8 * avdist ** 0.2
-                fact = m['health'] * np.exp(- (dist / avdist)**0.5)
+                fact = (m['health'] + m['attack']) * np.exp(- (dist / avdist)**0.5)
                 xm = (m['x'] * fact).sum() / fact.sum()
                 ym = (m['y'] * fact).sum() / fact.sum()
                 return Towards(2*me.x - xm, 2*me.y - ym)
@@ -65,11 +67,14 @@ class Brain:
                 if players[hero].health < 0.3 * players[hero].max_health:
                     return Levelup(hero, LevelupOptions.player_health)
         lowest_speed = 1e6
+        hcool = 0
         for hero in players.keys():
-            if players[hero].alive and players[hero].speed < lowest_speed:
-                lowest_speed = players[hero].speed
+            #if players[hero].alive and players[hero].speed < lowest_speed:
+            if players[hero].alive and players[hero].cooldown > hcool:
+                hcool = players[hero].cooldown
                 chero = hero
-        return Levelup(chero, LevelupOptions.player_speed)
+        return Levelup(chero, LevelupOptions.player_cooldown)
+        #return Levelup(chero, LevelupOptions.player_speed)
         hero = RNG.choice(list(players.keys()))
         what = RNG.choice(list(LevelupOptions))
         return Levelup(hero, what)

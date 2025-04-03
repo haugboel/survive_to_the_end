@@ -38,8 +38,8 @@ class Leader:
                     vy = me.y - m['y'][i]
                     dist = np.sqrt(vx**2 + vy**2)
                     q = 10*m['health'][i] + m['attack'][i]**2
-                    fx += q / dist**2 * vx / dist
-                    fy += q / dist**2 * vy / dist
+                    fx += q / dist * vx / dist
+                    fy += q / dist * vy / dist
                 
                 ff = np.sqrt(fx**2 + fy**2)
                 if ff > 0:

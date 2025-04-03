@@ -37,7 +37,7 @@ class Leader:
                     vx = me.x - m['x'][i]
                     vy = me.y - m['y'][i]
                     dist = np.sqrt(vx**2 + vy**2)
-                    q = m['health'][i] + m['attack'][i]
+                    q = 10*m['health'][i] + m['attack'][i]**2
                     fx += q / dist**2 * vx / dist
                     fy += q / dist**2 * vy / dist
                 
@@ -102,7 +102,7 @@ class Brain:
 team = Team(
     players=[
         Leader(hero="seraphina"),
-        Follower(hero="kaelen", following="seraphina"),
+        Follower(hero="isolde", following="seraphina"),
         Follower(hero="evelyn", following="seraphina"),
         Follower(hero="garron", following="seraphina"),
         Follower(hero="theron", following="seraphina"),

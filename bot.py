@@ -46,7 +46,7 @@ class Leader:
                     fx /= ff
                     fy /= ff
                 
-                return Vector(fx+0.1,fy+0.1)
+                return Vector(fx+0.3,fy+0.3)
 
         return self.vector
 

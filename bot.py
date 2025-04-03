@@ -38,8 +38,8 @@ class Leader:
                     vy = me.y - m['y'][i]
                     dist = np.sqrt(vx**2 + vy**2)
                     q = 10*m['health'][i] + m['attack'][i]**2
-                    fx += q / dist * vx / dist
-                    fy += q / dist * vy / dist
+                    fx += q / dist**1.2 * vx / dist
+                    fy += q / dist**1.2 * vy / dist
                 
                 ff = np.sqrt(fx**2 + fy**2)
                 if ff > 0:
@@ -67,7 +67,7 @@ class Brain:
 
     def levelup(self, t: float, info: dict, players: dict) -> Levelup:
 
-        if t > 60 * 3.5:
+        if t > 60 * 3.5 and t < 60 * 5.5:
             lowest_speed = 1e6
             for hero in players.keys():
                 if players[hero].alive and players[hero].speed < lowest_speed:

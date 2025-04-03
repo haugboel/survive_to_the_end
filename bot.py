@@ -40,8 +40,13 @@ class Leader:
                     q = m['health'][i] + m['attack'][i]
                     fx += q / dist**2 * vx / dist
                     fy += q / dist**2 * vy / dist
-
-                return Vector(fx,fy)
+                
+                ff = np.sqrt(fx**2 + fy**2)
+                if ff > 0:
+                    fx /= ff
+                    fy /= ff
+                
+                return Vector(fx+0.1,fy+0.1)
 
         return self.vector
 
@@ -95,7 +100,8 @@ team = Team(
         Follower(hero="cedric", following="isolde"),
         Follower(hero="evelyn", following="isolde"),
         Follower(hero="garron", following="isolde"),
-        Follower(hero="theron", following="isolde"),
+        Follower(hero="alaric", following="isolde"),
+        #Follower(hero="theron", following="isolde"),
     ],
     strategist=Brain(),
 )

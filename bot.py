@@ -17,7 +17,7 @@ class Leader:
         me = players[self.hero]
         if t > self.next_turn:
             self.vector = Vector(*RNG.random(2) * 2 - 1)
-            self.next_turn += 5.0
+            self.next_turn += 2.5
             if len(monsters) > 0:
                 lavdist = 0.; nm = 0
                 mdist = 6e5
@@ -46,7 +46,7 @@ class Leader:
                     fx /= ff
                     fy /= ff
                 
-                return Vector(fx+0.3,fy+0.3)
+                return Vector(fx+0.0,fy+0.0)
 
         return self.vector
 

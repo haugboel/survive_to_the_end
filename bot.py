@@ -68,7 +68,7 @@ class Brain:
         pass
 
     def levelup(self, t: float, info: dict, players: dict) -> Levelup:
-        if np.random.uniform() < 0.5:
+        if np.random.uniform() < 0.6:
             return Levelup("garron", LevelupOptions.weapon_damage)
         # A very random choice
         for hero in players.keys():
@@ -98,12 +98,13 @@ class Brain:
 #    ],
 team = Team(
     players=[
-        Leader(hero="isolde"),
-        Follower(hero="cedric", following="isolde"),
-        Follower(hero="evelyn", following="isolde"),
-        Follower(hero="garron", following="isolde"),
-        Follower(hero="alaric", following="isolde"),
-        #Follower(hero="theron", following="isolde"),
+        Leader(hero="seraphina"),
+        Follower(hero="kaelen", following="seraphina"),
+        Follower(hero="evelyn", following="seraphina"),
+        Follower(hero="garron", following="seraphina"),
+        Follower(hero="theron", following="seraphina"),
+        #Follower(hero="alaric", following="isolde"),
+        #Follower(hero="cedric", following="seraphina"),
     ],
     strategist=Brain(),
 )

@@ -45,8 +45,10 @@ class Leader:
                 if ff > 0:
                     fx /= ff
                     fy /= ff
-                
-                return Vector(fx+0.0,fy+0.0)
+                if t > 60*3.5:
+                    return Vector(fx-0.5,fy-0.5)
+                else:
+                    return Vector(fx+0.0,fy+0.0)
 
         return self.vector
 
@@ -68,6 +70,15 @@ class Brain:
         pass
 
     def levelup(self, t: float, info: dict, players: dict) -> Levelup:
+
+        if t > 60 * 3.5:
+            lowest_speed = 1e6
+            for hero in players.keys():
+                if players[hero].alive and players[hero].speed < lowest_speed:
+                    lowest_speed = players[hero].speed
+                    chero = hero
+            return Levelup(chero, LevelupOptions.player_speed)
+
         P = np.random.uniform()
         if P < 0.3:
             return Levelup("garron", LevelupOptions.weapon_damage)
